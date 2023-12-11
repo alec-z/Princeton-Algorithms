@@ -4,15 +4,15 @@ import java.util.Random;
 
 public class Board {
     private final int[][] tiles;
-    private final int n;
-    private int sliderRow;
-    private int sliderCol;
+    private final short n;
+    private short sliderRow;
+    private short sliderCol;
 
     public Board(int[][] tiles) {
         this.tiles = deepClone(tiles);
-        this.n = tiles.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++ ) {
+        this.n = (short)tiles.length;
+        for (short i = 0; i < n; i++) {
+            for (short j = 0; j < n; j++ ) {
                 if (this.tiles[i][j] == 0) {
                     sliderRow = i;
                     sliderCol = j;
@@ -51,11 +51,11 @@ public class Board {
         return n;
     }
 
-    private int hammingCached = -1;
+    private short hammingCached = -1;
 
     public int hamming() {
         if (hammingCached > -1) return hammingCached;
-        int res = 0;
+        short res = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (tiles[i][j] != 0) {

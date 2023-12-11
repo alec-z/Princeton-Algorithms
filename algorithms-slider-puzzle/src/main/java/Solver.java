@@ -15,6 +15,7 @@ public class Solver {
     private boolean solvable = false;
 
     public Solver(Board initial) {
+        if (initial == null) throw new IllegalArgumentException();
         this.initial = initial;
         solve();
     }
