@@ -51,7 +51,10 @@ public class Board {
         return n;
     }
 
+    private int hammingCached = -1;
+
     public int hamming() {
+        if (hammingCached > -1) return hammingCached;
         int res = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -62,10 +65,14 @@ public class Board {
                 }
             }
         }
-        return res;
+        hammingCached = res;
+        return hammingCached;
     }
+    
+    private int manhattanCached = -1;
 
     public int manhattan() {
+        if (manhattanCached > -1) return manhattanCached;
         int res = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j ++) {
@@ -85,9 +92,19 @@ public class Board {
     }
 
     public boolean equals(Object y) {
-        if (y == null) return false;
         if (this == y) return true;
-        return toString().equals(((Board)y).toString());
+        if (y == null) return false;
+        if (this.getClass().equals(y.getClass())) {
+            Board that = (Board)y;
+            if (n != that.n) return false;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j <n; j++) {
+                    if (tiles[i][j] != that.tiles[i][j]) return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     private void exchange(int[][] aTiles, int i, int j, int row, int col) {
@@ -125,7 +142,9 @@ public class Board {
         return res;
     }
 
+    private Board twin = null;
     public Board twin() {
+        if (twin != null) return twin;
         Random rand = new Random();
         do {
             int randPosition = rand.nextInt(n);
@@ -134,9 +153,11 @@ public class Board {
             if (tiles[randRow][randCol] != 0 && randRow + 1 < n && tiles[randRow + 1][randCol] != 0) {
                 int[][] newTiles = deepClone(tiles);
                 exchange(newTiles, randRow, randCol, randRow + 1, randCol);
-                return new Board(newTiles);
+                twin = new Board(newTiles);
+                return twin;
             }
         } while (true);
+        
     }
 
     public static void main(String[] args) {

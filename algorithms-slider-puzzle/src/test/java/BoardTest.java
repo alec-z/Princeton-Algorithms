@@ -116,7 +116,4 @@ public class BoardTest {
         assertFalse(board.equals(board.twin()));
 
     }
-
-
-
 }
