@@ -19,7 +19,6 @@ public class BaseballElimination {
     // caculated
     private boolean[] isEliminated;
     private ArrayList<ArrayList<Integer>> coes = null;
-    private Map<Integer, String> verticeNameToID;
 
     // create a baseball division from given filename in format specified below
     public BaseballElimination(String filename) {
